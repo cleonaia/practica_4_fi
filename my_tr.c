@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
     } else {
         /* Arguments invàlids: mostrar missatge d'ús i sortir */
         fprintf(stderr,
-                "Ús:\n  %s            # substitueix ' ' per ','  %s -d         # elimina espais\n  %s -s         # elimina repeticions consecutives\n",
+                "Ús:\n  %s            # substitueix ' ' per ','\n  %s -d         # elimina espais\n  %s -s         # elimina repeticions consecutives\n",
                 argv[0], argv[0], argv[0]);
         return 1;
     }
