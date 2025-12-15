@@ -3,10 +3,6 @@
  * Descripció: Versió avançada del programa my_tr amb suport per substituir
  *             qualsevol caràcter i eliminar caràcters específics.
  * 
- * Autor: cleonaia
- * Data: 2025-12-15
- * Assignatura: Fonaments d'Informàtica - Pràctica 4
- * 
  * Funcionalitats: 
  *   - Sense "-d" ni "-s": rep dos caràcters c1 c2 i substitueix c1 -> c2
  *     Ex.:  echo "miss" | ./my_tr_extra s z    => mizz
