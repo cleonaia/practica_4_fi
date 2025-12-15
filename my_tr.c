@@ -27,51 +27,51 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-    /* Modos de operación del programa */
+    /* Modes d'operació del programa */
     enum { MODE_SUBST, MODE_DELETE, MODE_SQUASH } mode = MODE_SUBST;
     
-    /* Variables para el modo SQUASH (eliminación de duplicados consecutivos) */
-    unsigned char prev = 0;      // Carácter anterior procesado
-    int have_prev = 0;            // Flag: ¿hemos procesado algún carácter?
+    /* Variables per al mode SQUASH (eliminació de duplicats consecutius) */
+    unsigned char prev = 0;      // Caràcter anterior processat
+    int have_prev = 0;            // Flag: hem processat algun caràcter?
 
-    /* Determinación del modo de operación según los argumentos de línea de comandos */
+    /* Determinació del mode d'operació segons els arguments de línia d'ordres */
     if (argc == 1) {
-        /* Sin argumentos: modo substitución (espacios -> comas) */
+        /* Sense arguments: mode substitució (espais -> comes) */
         mode = MODE_SUBST;
     } else if (argc == 2 && strcmp(argv[1], "-d") == 0) {
-        /* Opción -d: modo eliminación (eliminar espacios) */
+        /* Opció -d: mode eliminació (eliminar espais) */
         mode = MODE_DELETE;
     } else if (argc == 2 && strcmp(argv[1], "-s") == 0) {
-        /* Opción -s: modo squash (eliminar duplicados consecutivos) */
+        /* Opció -s: mode squash (eliminar duplicats consecutius) */
         mode = MODE_SQUASH;
     } else {
-        /* Argumentos inválidos: mostrar mensaje de uso y salir */
+        /* Arguments invàlids: mostrar missatge d'ús i sortir */
         fprintf(stderr,
                 "Ús:\n  %s            # substitueix ' ' per ','  %s -d         # elimina espais\n  %s -s         # elimina repeticions consecutives\n",
                 argv[0], argv[0], argv[0]);
         return 1;
     }
 
-    /* Buffer para leer datos de stdin */
+    /* Buffer per llegir dades de stdin */
     unsigned char buf[4096];
     ssize_t n;
 
-    /* Bucle principal: leer de stdin, procesar y escribir a stdout */
+    /* Bucle principal: llegir de stdin, processar i escriure a stdout */
     while ((n = read(STDIN_FILENO, buf, sizeof(buf))) > 0) {
-        /* Procesar cada byte leído según el modo seleccionado */
+        /* Processar cada byte llegit segons el mode seleccionat */
         for (ssize_t i = 0; i < n; ++i) {
             unsigned char c = buf[i];
 
             if (mode == MODE_SUBST) {
-                /* Modo SUBST: sustituir espacios por comas */
+                /* Mode SUBST: substituir espais per comes */
                 if (c == ' ') c = ',';
                 if (write(STDOUT_FILENO, &c, 1) != 1) { perror("write"); return 1; }
             } else if (mode == MODE_DELETE) {
-                /* Modo DELETE: omitir espacios, escribir el resto */
+                /* Mode DELETE: ometre espais, escriure la resta */
                 if (c == ' ') continue;
                 if (write(STDOUT_FILENO, &c, 1) != 1) { perror("write"); return 1; }
             } else { // MODE_SQUASH
-                /* Modo SQUASH: omitir caracteres consecutivos duplicados */
+                /* Mode SQUASH: ometre caràcters consecutius duplicats */
                 if (have_prev && c == prev) continue;
                 if (write(STDOUT_FILENO, &c, 1) != 1) { perror("write"); return 1; }
                 prev = c;
@@ -80,7 +80,7 @@ int main(int argc, char *argv[]) {
         }
     }
     
-    /* Verificar si hubo error en la lectura */
+    /* Verificar si hi ha hagut error en la lectura */
     if (n < 0) { perror("read"); return 1; }
     
     return 0;
