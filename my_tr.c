@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
         mode = MODE_SQUASH;        // remove consecutive duplicates
     } else {
         fprintf(stderr,
-                "Ús:\n  %s            # substitueix \\t per ,\n  %s -d         # elimina espais\n  %s -s         # elimina repeticions consecutives\n",
+                "Ús:\n  %s            # substitueix ' ' per ','  %s -d         # elimina espais\n  %s -s         # elimina repeticions consecutives\n",
                 argv[0], argv[0], argv[0]);
         return 1;
     }
@@ -45,4 +45,3 @@ int main(int argc, char *argv[]) {
     if (n < 0) { perror("read"); return 1; }
     return 0;
 }
-    
