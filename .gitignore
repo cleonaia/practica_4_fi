@@ -1,0 +1,16 @@
+# Compiled binaries
+my_tr
+my_tr_extra
+
+# Test output files
+cities_ES1.csv
+cities_ES2.csv
+
+# Object files
+*.o
+*.a
+*.so
+
+# Temporary files
+*~
+.*.swp

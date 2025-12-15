@@ -1,20 +1,32 @@
-// my_tr_extra.c 
-// Funcionalitats:
-// - Sense "-d" ni "-s": rep dos caràcters c1 c2 i substitueix c1 -> c2 a la sortida.
-//   Ex.: echo "miss" | ./my_tr_extra s z    => mizz
-// - Amb "-d c": elimina el caràcter c.
-//   Ex.: echo "a b c" | ./my_tr_extra -d \s => abc   (\s representa espai)
-// - Amb "-s": elimina repeticions consecutives del mateix caràcter.
-//   Ex.: echo "baall" | ./my_tr_extra -s     => bal
-//
-// I/O a baix nivell (read/write) sobre stdin (fd=0) i stdout (fd=1).
-// Compilació: gcc -Wall -Wextra -O2 -std=c11 -o my_tr_extra my_tr_extra.c
+/*
+ * Nombre del programa: my_tr_extra
+ * Descripción: Versión extendida del comando 'tr' con funcionalidades adicionales
+ * Autor: Estudiante de Fonaments d'Informàtica
+ * Fecha: Diciembre 2024
+ * Asignatura: Fonaments d'Informàtica - Pràctica 4
+ * 
+ * Funcionalitats:
+ *   - Sense "-d" ni "-s": rep dos caràcters c1 c2 i substitueix c1 -> c2 a la sortida.
+ *     Ex.: echo "miss" | ./my_tr_extra s z    => mizz
+ *   - Amb "-d c": elimina el caràcter c.
+ *     Ex.: echo "a b c" | ./my_tr_extra -d \s => abc   (\s representa espai)
+ *   - Amb "-s": elimina repeticions consecutives del mateix caràcter.
+ *     Ex.: echo "baall" | ./my_tr_extra -s     => bal
+ *
+ * Entrada/Salida:
+ *   - I/O a baix nivell (read/write) sobre stdin (fd=0) i stdout (fd=1)
+ * 
+ * Compilació: gcc -Wall -Wextra -O2 -std=c11 -o my_tr_extra my_tr_extra.c
+ * Ús:
+ *   ./my_tr_extra c1 c2     # substitueix c1 -> c2
+ *   ./my_tr_extra -d c      # elimina el caràcter c
+ *   ./my_tr_extra -s        # elimina repeticions consecutives
+ */
 
 #include <unistd.h>   // read, write
 #include <string.h>   // strcmp
 #include <stdlib.h>   // EXIT_SUCCESS/EXIT_FAILURE
-#include <stdio.h>    // fprintf
-#include <errno.h>    // errno
+#include <stdio.h>    // perror, fprintf
 
 // Converteix un argument de línia d'ordres en un únic caràcter.
 // Accepta: "q" (un sol caràcter), seqüències escapades: \t, \n, \r, \s (espai), \\ (barra invertida), \, (coma)
@@ -73,19 +85,19 @@ int main(int argc, char *argv[]) {
             if (mode == MODE_SUBST) {
                 if (c == from) c = to;
                 if (write(STDOUT_FILENO, &c, 1) != 1) {
-                    fprintf(stderr, "Error d'escriptura (errno=%d)\n", errno);
+                    perror("write");
                     return EXIT_FAILURE;
                 }
             } else if (mode == MODE_DELETE) {
                 if (c == del) continue; // no escriure aquest caràcter
                 if (write(STDOUT_FILENO, &c, 1) != 1) {
-                    fprintf(stderr, "Error d'escriptura (errno=%d)\n", errno);
+                    perror("write");
                     return EXIT_FAILURE;
                 }
             } else { // MODE_SQUASH
                 if (have_prev && c == prev) continue; // eliminar repetició consecutiva
                 if (write(STDOUT_FILENO, &c, 1) != 1) {
-                    fprintf(stderr, "Error d'escriptura (errno=%d)\n", errno);
+                    perror("write");
                     return EXIT_FAILURE;
                 }
                 prev = c;
@@ -95,7 +107,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (nread < 0) {
-        fprintf(stderr, "Error de lectura (errno=%d)\n", errno);
+        perror("read");
         return EXIT_FAILURE;
     }
 
