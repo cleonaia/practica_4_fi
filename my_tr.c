@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
             unsigned char c = buf[i]; //Assignem el byte llegit a la variable c
 
             if (mode == MODE_SUBST) { // Si estem en mode de substitució
-                if (c == ' ') c = ','; //Substituïm els espais per comes
+                if (c == '\t') c = ','; //Substituïm els espais per comes
                 if (write(STDOUT_FILENO, &c, 1) != 1) { perror("write"); return 1; } //Escrivim el caràcter modificat a la sortida
             } else if (mode == MODE_DELETE) { //Si estem en mode d'eliminació
                 if (c == ' ') continue; // I el caràcter és un espai, el saltem
@@ -44,4 +44,3 @@ int main(int argc, char *argv[]) {
     if (n < 0) { perror("read"); return 1; } //Comprovem si hi ha hagut un error en la lectura
     return 0; //Retornem 0 per indicar que el programa ha finalitzat correctament
 }
-    
