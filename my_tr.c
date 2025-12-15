@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
             unsigned char c = buf[i];
 
             if (mode == MODE_SUBST) {
-                if (c == '\t') c = ',';
+                if (c == ' ') c = ',';
                 if (write(STDOUT_FILENO, &c, 1) != 1) { perror("write"); return 1; }
             } else if (mode == MODE_DELETE) {
                 if (c == ' ') continue;
