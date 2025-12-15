@@ -1,18 +1,18 @@
 /*
- * Nombre del programa: my_tr
- * Descripción: Programa simplificado similar al comando 'tr' de Unix
- * Autor: Estudiante de Fonaments d'Informàtica
- * Fecha: Diciembre 2024
- * Asignatura: Fonaments d'Informàtica - Pràctica 4
+ * Nom del programa: my_tr
+ * Descripció: Programa simplificat similar a la comanda 'tr' d'Unix
+ * Autor: Estudiant de Fonaments d'Informàtica
+ * Data: Desembre 2024
+ * Assignatura: Fonaments d'Informàtica - Pràctica 4
  * 
  * Funcionalitat:
- *   - Sin argumentos: substituye espacios ' ' por comas ','
- *   - Con -d: elimina todos los espacios ' ' de la entrada
- *   - Con -s: elimina caracteres consecutivos duplicados
+ *   - Sense arguments: substitueix espais ' ' per comes ','
+ *   - Amb -d: elimina tots els espais ' ' de l'entrada
+ *   - Amb -s: elimina caràcters consecutius duplicats
  * 
- * Entrada/Salida:
- *   - Lee de stdin usando read() (bajo nivel)
- *   - Escribe a stdout usando write() (bajo nivel)
+ * Entrada/Sortida:
+ *   - Llegeix de stdin utilitzant read() (baix nivell)
+ *   - Escriu a stdout utilitzant write() (baix nivell)
  * 
  * Compilació: gcc -Wall -o my_tr my_tr.c
  * Ús:

@@ -1,9 +1,9 @@
 /*
- * Nombre del programa: my_tr_extra
- * Descripción: Versión extendida del comando 'tr' con funcionalidades adicionales
- * Autor: Estudiante de Fonaments d'Informàtica
- * Fecha: Diciembre 2024
- * Asignatura: Fonaments d'Informàtica - Pràctica 4
+ * Nom del programa: my_tr_extra
+ * Descripció: Versió estesa de la comanda 'tr' amb funcionalitats addicionals
+ * Autor: Estudiant de Fonaments d'Informàtica
+ * Data: Desembre 2024
+ * Assignatura: Fonaments d'Informàtica - Pràctica 4
  * 
  * Funcionalitats:
  *   - Sense "-d" ni "-s": rep dos caràcters c1 c2 i substitueix c1 -> c2 a la sortida.
@@ -13,7 +13,7 @@
  *   - Amb "-s": elimina repeticions consecutives del mateix caràcter.
  *     Ex.: echo "baall" | ./my_tr_extra -s     => bal
  *
- * Entrada/Salida:
+ * Entrada/Sortida:
  *   - I/O a baix nivell (read/write) sobre stdin (fd=0) i stdout (fd=1)
  * 
  * Compilació: gcc -Wall -Wextra -O2 -std=c11 -o my_tr_extra my_tr_extra.c
