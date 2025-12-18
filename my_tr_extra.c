@@ -2,7 +2,6 @@
  * Programa: my_tr_extra (Funcionalitat extra)
  * Descripció: Versió avançada del programa my_tr amb suport per substituir
  *             qualsevol caràcter i eliminar caràcters específics.
- * 
  * Funcionalitats: 
  *   - Sense "-d" ni "-s": rep dos caràcters c1 c2 i substitueix c1 -> c2
  *     Ex.:  echo "miss" | ./my_tr_extra s z    => mizz
@@ -29,27 +28,6 @@
 #include <stdlib.h>   // per EXIT_SUCCESS, EXIT_FAILURE
 #include <stdio.h>    // per fprintf(), perror()
 
-/*
- * Funció:  parse_char
- * Descripció:  Converteix un argument de línia d'ordres en un únic caràcter. 
- *             Accepta caràcters literals i seqüències escapades.
- * 
- * Paràmetres:
- *   - s: cadena d'entrada (argument de línia d'ordres)
- *   - out: punter on es guardarà el caràcter interpretat
- * 
- * Retorna:
- *   - 0 si s'ha interpretat correctament
- *   - -1 si hi ha hagut un error (cadena invàlida)
- * 
- * Seqüències acceptades:
- *   \t  -> tabulador
- *   \n  -> nova línia
- *   \r  -> retorn de carro
- *   \s  -> espai
- *   \\  -> barra invertida
- *   \,  -> coma
- */
 static int parse_char(const char *s, unsigned char *out) {
     if (!s || !s[0]) return -1;  // Cadena buida o NULL
     
